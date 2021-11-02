@@ -6,35 +6,30 @@ use Illuminate\Http\Request;
 
 class AnimalController extends Controller
 {
-    private $data = array();
+    public $animals;
 
-    public function __construct(){
-        $this->data = ['Anjing', 'Kelinci', 'Kura-Kura'];
+    function __construct() {
+        $this->animals = ['Anjing', 'Kelinci', 'Kura-Kura'];
     }
 
-    function index()
-    {
-        return $this->data;
+    function index() {
+        foreach ($this->animals as $animal) {
+            echo "$animal";
+        }
     }
 
-    function store(Request $request)
-    {
-        $namaHewan = $request->nama;
-        array_push($this->data, $namaHewan);
-        return $this->data;
+    function store(Request $request) {
+        array_push($this->animals, $request->nama);
+        $this->index();
     }
 
-    function update(Request $request, $id)
-    {
-        $updateNama = $request->nama;
-        $replaceData = array($id => $updateNama);
-        $this->data = array_replace($this->data, $replaceData);
-        return $this->data;
+    function update(Request $request, $id) {
+        $this->animals[$id] = $request->nama;
+        $this->index();
     }
 
-    function destroy($id)
-    {
-        unset($this->data[$id]);
-        return $this->data;
+    function destroy($id) {
+        unset($this->animals[$id]);
+        $this->index();
     }
 }
