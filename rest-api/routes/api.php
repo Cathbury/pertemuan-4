@@ -17,22 +17,17 @@ use App\Http\Controllers\StudentController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-# method get, endpoint animals
-Route::get('/animals', [AnimalController::class, 'index']);
-
-# method post, endpoint animals
-Route::post('/animals', [AnimalController::class, 'store']);
-
-# method put
-Route::put('/animals/{id}', [AnimalController::class, 'update']);
-
-# method delete
-Route::delete('/animals/{id}', [AnimalController::class, 'destroy']);
-
-
 # Routing untuk students
 Route::get("/students", [StudentController::class, 'index']);
+
+# Route post endpoint student
+Route::post("/students", [StudentController::class, 'store']);
+
+# Get Detail Resource
+Route::get("/students/{id}", [StudentController::class, 'show']);
+
+# Update resource
+Route::put("/students/{id}", [StudentController::class, 'update']);
+
+# Delete resource
+Route::delete("/students/{id}", [StudentController::class, 'destroy']);
